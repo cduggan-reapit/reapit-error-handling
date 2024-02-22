@@ -12,8 +12,6 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: |
-          apt update
-          apt install -y sudo
           sudo apt install -y git curl
           curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
           sudo DEBIAN_FRONTEND=noninteractive apt install -y nodejs
