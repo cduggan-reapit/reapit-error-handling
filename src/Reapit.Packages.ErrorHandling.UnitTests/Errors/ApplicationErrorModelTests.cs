@@ -18,8 +18,6 @@ public class ApplicationErrorModelTests
         var model = ApplicationErrorModel.FromException(exception);
 
         model.Message.Should().BeEquivalentTo(ApplicationErrorModel.ErrorMessage);
-        model.ErrorType.Should().BeEquivalentTo(exception.GetType().Name);
-        model.Exception.Should().BeEquivalentTo(exception.Message);
         model.Timestamp.Should().Be(timestamp);
     }
 }

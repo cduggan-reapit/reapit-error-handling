@@ -10,16 +10,6 @@ public class ApplicationErrorModel : BaseErrorModel
     internal const string ErrorMessage = "An unexpected error has occurred";
     
     /// <summary>
-    /// The type of error
-    /// </summary>
-    public string ErrorType { get; private init; }
-    
-    /// <summary>
-    /// Description of the error
-    /// </summary>
-    public string Exception { get; private init; }
-    
-    /// <summary>
     /// Initialize a new instance of the <see cref="ApplicationErrorModel"/> class
     /// </summary>
     /// <param name="errorType">The type of exception</param>
@@ -27,8 +17,6 @@ public class ApplicationErrorModel : BaseErrorModel
     private ApplicationErrorModel(string errorType, string exception)
         : base(ErrorMessage)
     {
-        ErrorType = errorType;
-        Exception = exception;
     }
 
     /// <summary>
