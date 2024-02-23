@@ -37,6 +37,8 @@ jobs:
         with:
             name: test-results.zip
             path: test-results.zip
-      
-      
-        
+
+      - run: |
+          mkdir code-coverage
+          cp ./test-results/*/coverage.cobertura.xml ./test-results/coverage.cobertura.xml
+          dotnet --version
