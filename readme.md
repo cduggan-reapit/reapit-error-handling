@@ -14,7 +14,7 @@ using Reapit.Packages.ErrorHandling;
 // ...
 builder.Services.RegisterErrorHandlerServices();
 // ...
-app.UseExceptionHandler(_ = { });
+app.UseExceptionHandler(_ => { });
 ```
 
 > Note: the empty lambda is required due to a bug in dotnet.  If an InvalidOperationException is raised on startup with a description including "Either the 'ExceptionHandlingPath' or the 'ExceptionHandler' property must be set in 'UseExceptionHandler()'.", double-check that this lambda is present.
