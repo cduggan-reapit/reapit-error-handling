@@ -22,12 +22,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
             dotnet-version: 8.0.x
-            
-      - name: Restore dependencies
-        run: dotnet restore ./src/
-        
+
       - name: Build and test
         run: |
+            dotnet restore ./src/
             dotnet build ./src/ --no-restore
             dotnet test ./src/ --no-build --logger trx --results-directory test-results --collect:"xplat code coverage"
             zip test-results.zip test-results/*.trx
@@ -46,5 +44,11 @@ jobs:
       
       - name: Run code coverage report generator
         run: | 
-          reportgenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:Html;Badges;MarkdownSummaryGithub
+          reportgenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:MarkdownSummaryGithub
           zip code-coverage.zip code-coverage
+          
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage.zip
+          path: code-coverage.zip
