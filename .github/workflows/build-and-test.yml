@@ -28,13 +28,12 @@ jobs:
             dotnet restore ./src/
             dotnet build ./src/ --no-restore
             dotnet test ./src/ --no-build --logger trx --results-directory test-results --collect:"xplat code coverage"
-            zip test-results.zip test-results/*.trx
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-            name: test-results.zip
-            path: test-results.zip
+            name: test-results
+            path: test-results
 
       - name: Install code coverage report generator 
         run: |
@@ -44,11 +43,12 @@ jobs:
       
       - name: Run code coverage report generator
         run: | 
-          reportgenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:MarkdownSummaryGithub
-          zip code-coverage.zip code-coverage
+          reportgenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:Html
+          ls code-coverage -R
+          ls test-results -R
           
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: code-coverage.zip
-          path: code-coverage.zip
+          name: code-coverage
+          path: code-coverage
