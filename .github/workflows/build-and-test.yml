@@ -38,9 +38,13 @@ jobs:
             name: test-results.zip
             path: test-results.zip
 
+      - name: Install code coverage report generator 
       - run: |
           mkdir code-coverage
           cp ./test-results/*/coverage.cobertura.xml ./test-results/coverage.cobertura.xml
           dotnet tool install -g dotnet-reportgenerator-globaltool 
       
-      - run: ls -R
+      - name: Run code coverage report generator
+      - run: | 
+          reportgenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:Html;Badges;MarkdownSummaryGithub
+          zip code-coverage.zip code-coverage
