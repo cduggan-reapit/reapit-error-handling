@@ -38,19 +38,5 @@ jobs:
             name: test-results.zip
             path: test-results.zip
       
-      - run: mkdir code-coverage
-      - run: cp ./test-results/*/coverage.cobertura.xml ./test-results/coverage.cobertura.xml
-      - run: dotnet --version
-      - run: dotnet tool install -g dotnet-reportgenerator-globaltool
-        
-      - name: Generate code coverage report
-      - run: |
-            dotnet ReportGenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:Html;Badges;MarkdownSummaryGithub
-            zip code-coverage.zip code-coverage
-        
-      - name: Upload coverage results
-        uses: actions/upload-artifact@v4
-        with:
-          name: code-coverage.zip
-          path: code-coverage.zip
+      
         
