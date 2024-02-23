@@ -3,8 +3,8 @@ name: Commit Linting
 on: [push, pull_request]
 
 jobs:
-  commit_lint:
-    name: "Lint commits"
+  commit-lint:
+    name: Commit linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
