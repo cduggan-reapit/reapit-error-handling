@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test-package:
-    name: Test Package
+    name: Build and Test Package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,12 +37,14 @@ jobs:
         with:
             name: test-results.zip
             path: test-results.zip
-            
+      
+      - run: mkdir code-coverage
+      - run: cp ./test-results/*/coverage.cobertura.xml ./test-results/coverage.cobertura.xml
+      - run: dotnet --version
+      - run: dotnet tool install -g dotnet-reportgenerator-globaltool
+        
       - name: Generate code coverage report
-        run: |
-            mkdir code-coverage
-            dotnet tool install -g dotnet-reportgenerator-globaltool
-            cp ./test-results/*/coverage.cobertura.xml ./test-results/coverage.cobertura.xml
+      - run: |
             dotnet ReportGenerator -reports:"test-results/coverage.cobertura.xml" -targetdir:"code-coverage" -reporttypes:Html;Badges;MarkdownSummaryGithub
             zip code-coverage.zip code-coverage
         
